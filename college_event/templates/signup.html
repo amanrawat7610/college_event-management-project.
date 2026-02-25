@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; background:#1a202c;">
+    <div class="form-card" style="width:380px;">
+        <h2 style="text-align:center; color:#2ecc71; margin-bottom: 25px;">Admin Signup</h2>
+        <form action="/signup" method="POST">
+            <label>Master Key</label>
+            <input type="password" name="master_key" placeholder="Enter Secret Key" required>
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <button type="submit" class="btn-submit" style="width: 100%; margin-top: 15px;">CREATE ACCOUNT</button>
+        </form>
+        <p style="text-align: center; margin-top: 15px;">Already have an account? <a href="/login" style="color:#2ecc71;">Login</a></p>
+    </div>
+</body>
+</html>

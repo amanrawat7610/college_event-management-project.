@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Records - Blue Edition</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f7fafc; margin: 0; transition: 0.4s; }
+        .navbar-custom { background-color: #1a202c; padding: 12px 20px; display: flex; align-items: center; gap: 20px; color: white; border-bottom: 3px solid #3182ce; }
+        .navbar-custom a { color: #cbd5e0; text-decoration: none; font-weight: 600; padding: 8px 15px; }
+        .navbar-custom a.active { background-color: #3182ce; color: white; border-radius: 5px; }
+        
+        /* Sidebar Styling */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0; background-color: #1a202c; overflow-x: hidden; transition: 0.4s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 18px; color: #cbd5e0; display: block; transition: 0.3s; }
+        .sidebar a:hover { color: #3182ce; background: #2d3748; }
+        .sidebar .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: white; cursor: pointer; }
+        
+        .container { max-width: 1100px; margin: 40px auto; padding: 20px; }
+        .table-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid #3182ce; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background-color: #3182ce; color: white; padding: 15px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+        .open-btn { font-size: 25px; cursor: pointer; background: none; border: none; color: #3182ce; }
+    </style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="/">Dashboard</a>
+    <a href="/register">Add Student</a>
+    <a href="/students">View Records</a>
+   
+    <a href="/logout">Logout</a>
+</div>
+
+<nav class="navbar-custom">
+    <button class="open-btn" onclick="openNav()">&#9776;</button>
+    <span style="font-weight: bold; color: #3182ce;">College Hub</span>
+    <a href="/">Home</a>
+    <a href="/students" class="active">View Records</a>
+</nav>
+
+<div class="container">
+    <div class="table-card">
+        <h2>Registered Student Records</h2>
+        <table>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Phone</th>
+                <th>Event</th>
+                <th>Action</th>
+            </tr>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.roll_no }}</td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.branch }}</td>
+                <td>{{ s.year }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ s.event_name }}</td>
+                <td>
+    <a href="/delete_student/{{ s.id }}" 
+       onclick="return confirm('Delete permanently?')" 
+       style="color: #e53e3e; text-decoration: none; font-weight: bold; font-size: 18px;">
+       🗑️
+    </a>
+</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+    function openNav() { document.getElementById("mySidebar").style.width = "280px"; }
+    function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+</script>
+</body>
+</html>

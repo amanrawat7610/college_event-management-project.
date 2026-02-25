@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Student - Blue Edition</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f7fafc; margin: 0; transition: 0.4s; }
+        .navbar-custom { background-color: #1a202c; padding: 12px 20px; display: flex; align-items: center; gap: 20px; color: white; border-bottom: 3px solid #3182ce; }
+        .navbar-custom a { color: #cbd5e0; text-decoration: none; font-weight: 600; padding: 8px 15px; }
+        .navbar-custom a.active { background-color: #3182ce; color: white; border-radius: 5px; }
+        
+        /* Sidebar Styling (Same as Dashboard) */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0; background-color: #1a202c; overflow-x: hidden; transition: 0.4s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 18px; color: #cbd5e0; display: block; transition: 0.3s; }
+        .sidebar a:hover { color: #3182ce; background: #2d3748; }
+        .sidebar .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: white; cursor: pointer; }
+        
+        .container { max-width: 500px; margin: 50px auto; padding: 20px; }
+        .form-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #3182ce; }
+        .open-btn { font-size: 25px; cursor: pointer; background: none; border: none; color: #3182ce; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        .btn-submit { width: 100%; background-color: #3182ce; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="/">Dashboard</a>
+    <a href="/register">Add Student</a>
+    <a href="/students">View Records</a>
+    
+    <a href="/logout">Logout</a>
+</div>
+
+<nav class="navbar-custom">
+    <button class="open-btn" onclick="openNav()">&#9776;</button>
+    <span style="font-weight: bold; color: #3182ce;">College Hub</span>
+    <a href="/">Home</a>
+    <a href="/register" class="active">Add Students</a>
+</nav>
+
+<div class="container">
+    <div class="form-card">
+        <h2 style="text-align: center; color: #2d3748;">Student Registration</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div style="padding: 12px; background-color: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold;">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+        <form action="/register" method="POST">
+            <input type="text" name="roll_no" placeholder="Roll Number" required>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="branch" placeholder="Branch" required>
+            <select name="year" required>
+                <option value="" disabled selected>Select Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+            </select>
+            <input type="text" 
+       name="phone" 
+       id="phone"
+       placeholder="Phone Number" 
+       pattern="\d{10}" 
+       title="Please enter exactly 10 digits" 
+       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" 
+       required>
+            <input type="text" name="event" placeholder="Event Name" required>
+            <button type="submit" class="btn-submit">Register Student</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openNav() { document.getElementById("mySidebar").style.width = "280px"; }
+    function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+</script>
+</body>
+</html>

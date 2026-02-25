@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; text-align:center; background:#1a202c;">
+    <div class="form-card" style="width: 400px; border-top: 5px solid #e74c3c;">
+        <h1 style="color:#e74c3c;">Access Denied!</h1>
+        <p style="color: #a0aec0;">Only the Admin can view the student list. Please login to continue.</p>
+        <br>
+        <a href="/login" class="btn-submit" style="text-decoration:none;">Go to Admin Login</a>
+        <br><br>
+        <a href="/" style="color:#2ecc71; text-decoration:none;">Back to Home</a>
+    </div>
+</body>
+</html>
