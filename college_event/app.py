@@ -10,8 +10,12 @@ app.secret_key = "college_event_final_perfect_version"
 basedir = os.path.abspath(os.path.dirname(__name__))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'instance', 'college_event.db'))
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+# app.py mein jahan db = SQLAlchemy(app) hai uske niche ye dalo:
+with app.app_context():
+    db.create_all()
 
 # Fixed Master Key (Bina kisi space ke dalo: admin@786)
 MASTER_KEY = "admin@786"
@@ -164,3 +168,4 @@ def add_header(response):
 if __name__ == '__main__':
 
     app.run(debug=True)
+
