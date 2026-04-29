@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.1">
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Green Theme</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        /* Modern Purple Theme */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh;
+            transition: 0.4s; 
+        }
+        
+        /* Modern Navbar */
+        .navbar-custom { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 12px 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            color: white; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #48bb78; 
+        }
+        .navbar-custom a { 
+            color: #4a5568; 
+            text-decoration: none; 
+            font-weight: 600; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
+        }
+        .navbar-custom a:hover { 
+            color: white; 
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+        }
+        .navbar-custom a.active { 
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); 
+            color: white; 
+        }
+
+        /* Modern Sidebar */
+        .sidebar { 
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 1001; 
+            top: 0; 
+            left: 0; 
+            background: rgba(26, 32, 44, 0.95); 
+            backdrop-filter: blur(10px);
+            overflow-x: hidden; 
+            transition: 0.4s; 
+            padding-top: 60px; 
+            box-shadow: 4px 0 15px rgba(0,0,0,0.5); 
+            border-right: 3px solid #48bb78;
+        }
+        .sidebar a { 
+            padding: 15px 25px; 
+            text-decoration: none; 
+            font-size: 18px; 
+            color: #cbd5e0; 
+            display: block; 
+            transition: 0.3s; 
+            border-left: 4px solid transparent; 
+        }
+        .sidebar a:hover { 
+            color: #48bb78; 
+            background: rgba(45, 55, 72, 0.8); 
+            padding-left: 35px; 
+            border-left: 4px solid #48bb78; 
+        }
+        .sidebar .closebtn { 
+            position: absolute; 
+            top: 10px; 
+            right: 25px; 
+            font-size: 36px; 
+            color: white; 
+            cursor: pointer; 
+        }
+        
+        /* Profile Section Fixes */
+        .profile-section { 
+            padding: 20px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(74, 85, 104, 0.5); 
+            margin-bottom: 20px; 
+        }
+        .profile-img { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%; 
+            margin: 0 auto 10px; 
+            border: 3px solid #48bb78; 
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            background-color: #2d3748;
+        }
+        
+        /* About Box */
+        .about-text { 
+            color: #a0aec0; 
+            padding: 20px; 
+            font-size: 13px; 
+            line-height: 1.6; 
+            background: rgba(45, 55, 72, 0.8); 
+            margin: 15px; 
+            border-radius: 10px; 
+            border: 1px solid rgba(74, 85, 104, 0.5); 
+        }
+        
+        /* Main UI Elements */
+        .container { 
+            max-width: 1000px; 
+            margin: 30px auto; 
+            padding: 0 20px; 
+        }
+        .flex-row { 
+            display: flex; 
+            gap: 20px; 
+            margin-bottom: 30px; 
+        }
+        .form-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1); 
+            flex: 1; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #48bb78; 
+            transition: all 0.3s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        .stats-card { 
+            text-align: center; 
+        }
+        .stats-card h3 { 
+            font-size: 45px; 
+            color: #48bb78; 
+            margin: 10px 0; 
+            font-weight: 700;
+        }
+        
+        .open-btn { 
+            font-size: 28px; 
+            cursor: pointer; 
+            background: none; 
+            border: none; 
+            color: #48bb78; 
+            display: flex; 
+            align-items: center; 
+        }
+        .open-btn:hover { 
+            color: #38a169; 
+        }
+        
+        /* Event List */
+        .event-item { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 15px 20px; 
+            margin-bottom: 12px; 
+            border-radius: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+            border-left: 5px solid #48bb78; 
+            transition: all 0.3s ease;
+        }
+        .event-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .delete-btn { 
+            color: #e53e3e; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 14px; 
+            padding: 8px 16px;
+            border-radius: 6px;
+            background: rgba(229, 62, 62, 0.1);
+            transition: all 0.3s ease;
+        }
+        .delete-btn:hover { 
+            color: white;
+            background: #e53e3e;
+            text-decoration: none; 
+        }
+
+        .btn-add { 
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); 
+            color:white; 
+            border:none; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            cursor:pointer; 
+            font-weight: bold; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+        }
+        .btn-add:hover { 
+            background: linear-gradient(135deg, #38a169 0%, #48bb78 100%); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6);
+        }
+
+        h3 {
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-custom { padding: 10px 15px; font-size: 14px; }
+            .navbar-custom a { padding: 6px 10px; }
+            .flex-row { flex-direction: column; gap: 15px; }
+            .stats-card h3 { font-size: 35px; }
+            .sidebar { width: 250px; }
+        }
+
+        /* Additional attractive styles */
+        .welcome-card {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 50%, #9ae6b4 100%);
+            color: black;
+            border: 2px solid #48bb78;
+            box-shadow: 0 8px 32px rgba(72, 187, 120, 0.2);
+        }
+        .welcome-card h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    
+    <div class="profile-section">
+        <img class="profile-img" src="{{ url_for('static', filename='aman.jpeg') }}" alt="Admin Profile" onerror="this.src='https://via.placeholder.com/90x90/48bb78/ffffff?text=👤'">
+        <h3 style="color: white; margin: 10px 0 5px 0; font-size: 20px;">College Admin</h3>
+        <p style="color: #68d391; font-size: 13px; margin: 0; font-weight: 500;">System Administrator</p>
+    </div>
+
+    <a href="/">🏠 Dashboard</a>
+    <a href="/register">➕ Register Student</a>
+    <a href="/students">📋 View Records</a>
+    <form method="POST" action="{{ url_for('logout') }}" style="display: block; padding: 0;">
+        <button type="submit" style="background: none; border: none; color: #cbd5e0; font-size: 18px; cursor: pointer; transition: 0.3s; padding: 15px 25px; width: 100%; text-align: left; border-left: 4px solid transparent;">🚪 Logout</button>
+    </form>
+
+    <div class="about-text">
+        <h4 style="color: #48bb78; margin-top: 0; font-size: 18px; font-weight: bold; text-align: center;">About Developer</h4>
+        <p style="font-size: 14px; line-height: 1.5; text-align: center;">This system is developed by <strong style="color: #38a169; font-size: 16px; font-weight: bold;">Aman Singh Rawat</strong>.</p>
+        <p style="font-size: 12px; border-top: 2px solid #48bb78; padding-top: 10px; margin-top: 15px; text-align: center; color: #68d391;">Version 3.1 (Stable - Green Edition)</p>
+    </div>
+</div>
+
+<nav class="navbar-custom">
+    <button class="open-btn" onclick="openNav()">&#9776;</button>
+    <span style="font-size: 20px; font-weight: bold; margin-right: auto; color: #68d391;">College Event Hub</span>
+    <a href="/" class="active">Home</a>
+    <a href="/register">Add Students</a>
+    <a href="/students">View Records</a>
+</nav>
+
+<div class="container" id="main">
+    <div class="dashboard-content"> 
+        <div class="form-card stats-card welcome-card">
+            <h3>Welcome to the College Event Hub page</h3>
+        </div>
+        
+        <div class="flex-row">
+            <div class="form-card stats-card">
+                <p style="color: red; margin: 0; text-transform: uppercase; font-size: 12px; font-weight: bold;">Registered Students</p>
+                <h3>{{ total_reg }}</h3>
+            </div>
+
+            <div class="form-card" style="flex: 2;">
+                <h4 style="margin:0 0 15px 0; color: #2d3748;">Add New Event (Admin Only)</h4>
+                <div style="display: flex; gap: 12px; opacity: 0.6;">
+                    <input type="text" placeholder="Event Name" disabled style="flex: 2; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <button type="button" disabled style="background: #a0aec0; color:white; border:none; padding: 12px 25px; border-radius: 8px;">Add Event</button>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="color: #2d3748; margin-bottom: 20px; text-align: center;">Upcoming Events</h3>
+        {% if events %}
+            {% for e in events %}
+            <div class="event-item">
+                <div>
+                    <span style="font-weight: bold; font-size: 16px; color: #2d3748;">{{ e.name }}</span><br>
+                    <small style="color: #718096;">Date: {{ e.date }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: #a0aec0; text-align: center; margin-top: 30px;">No events found.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function openNav() { document.getElementById("mySidebar").style.width = "280px"; }
+    function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+</script>
+
+</body>
+</html>

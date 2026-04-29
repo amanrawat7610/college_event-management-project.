@@ -1,0 +1,136 @@
+/* 1. GLOBAL STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); /* Green Theme */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 2. NAVBAR */
+.navbar-custom {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #48bb78; /* Green Border */
+}
+
+.navbar-custom a {
+    color: #4a5568;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar-custom a:hover, .navbar-custom a.active {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+/* 3. SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -285px; /* Default hidden */
+    width: 280px;
+    height: 100vh;
+    background: rgba(26, 32, 44, 0.98); /* Dark Theme for Sidebar */
+    transition: all 0.4s ease-in-out;
+    z-index: 10000;
+    padding-top: 20px;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    border-right: 3px solid #48bb78;
+}
+
+/* Jab sidebar khulega tab ye class trigger hogi */
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: #cbd5e0;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.sidebar a:hover {
+    color: #48bb78;
+    background: rgba(45, 55, 72, 0.8);
+    padding-left: 35px;
+    border-left: 4px solid #48bb78;
+}
+
+/* 4. PROFILE IMAGE FIX (Main Part) */
+.profile-section {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(74, 85, 104, 0.5);
+    margin-bottom: 10px;
+}
+
+.profile-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%; /* Perfect Circle */
+    object-fit: cover; /* Photo stretch nahi hogi */
+    display: block;
+    margin: 0 auto 10px;
+    border: 3px solid #48bb78; /* Green Border around photo */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* 5. CONTAINERS & CARDS */
+.container {
+    padding: 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.form-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-top: 4px solid #48bb78;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+/* 6. MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .navbar-custom {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .navbar-custom a {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .sidebar {
+        width: 250px;
+    }
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup - Professional Purple</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.1">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-custom { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 12px 5%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #667eea;
+            z-index: 1000;
+        }
+
+        .navbar-custom a { 
+            color: #4a5568; 
+            text-decoration: none; 
+            font-weight: 600; 
+            padding: 8px 18px; 
+            border-radius: 8px; 
+            transition: 0.3s; 
+            font-size: 14px;
+        }
+
+        .navbar-custom a:hover, .navbar-custom a.active { 
+            background: #667eea;
+            color: white; 
+        }
+
+        .signup-container {
+            flex-grow: 1;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+        }
+
+        .form-card { 
+            background: #ffffff;
+            padding: 40px; 
+            border-radius: 24px; 
+            width: 100%;
+            max-width: 450px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            border-top: 6px solid #667eea;
+            box-sizing: border-box;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 { 
+            text-align: center; 
+            color: #2d3748; 
+            margin-bottom: 5px; 
+            font-weight: 800;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        label { 
+            font-size: 13px; 
+            color: #4a5568; 
+            font-weight: 700; 
+            display: block; 
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 20px; 
+            border: 2px solid #edf2f7; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            background: #f8fafc;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 10px 15px rgba(102, 126, 234, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer-links { text-align: center; margin-top: 25px; font-size: 14px; color: #4a5568; }
+        .footer-links a { color: #667eea; text-decoration: none; font-weight: 700; }
+
+        /* --- MOBILE OVERLAP FIX (START) --- */
+        @media (max-width: 650px) {
+            .navbar-custom {
+                flex-wrap: wrap; 
+                justify-content: center;
+                padding: 10px;
+                height: auto;
+            }
+
+            .navbar-custom span {
+                width: 100%; 
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .navbar-custom div {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap; /* Space kam hone par "New Admin" niche shift ho jayega */
+                gap: 5px;
+            }
+
+            .navbar-custom a {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+        /* --- MOBILE OVERLAP FIX (END) --- */
+    </style>
+</head>
+<body>
+    <nav class="navbar-custom">
+        <span style="font-size: 22px; font-weight: 800; color: #667eea;">College Event Hub</span>
+        <div>
+            <a href="/">Home</a>
+            <a href="/register">Add Student</a>
+            <a href="/signup" class="active">New Admin</a>
+        </div>
+    </nav>
+    
+    <div class="signup-container">
+        <div class="form-card">
+            <h2>Admin Signup</h2>
+            <p class="subtitle">Join the professional management team</p>
+
+            <form action="/signup" method="POST">
+                <label>Master Access Key</label>
+                <input type="password" name="master_key" placeholder="Enter Secret Key" required>
+                
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="name@college.com" required>
+                
+                <label>Create Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+                
+                <button type="submit" class="btn-submit">CREATE ACCOUNT</button>
+            </form>
+
+            <div class="footer-links">
+                Already part of the team? <a href="/login">Login Here</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.1">
+    <title>Admin Login - Purple Edition</title>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Screen ki height fix kar di */
+            overflow: hidden; /* Extra scrolling band */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar-custom { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 12px 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #667eea; 
+            flex-shrink: 0;
+        }
+
+        .navbar-custom a { 
+            color: #4a5568; 
+            text-decoration: none; 
+            font-weight: 600; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            transition: 0.3s; 
+        }
+
+        .navbar-custom a.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+        }
+
+        .login-container {
+            flex-grow: 1;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+        }
+
+        .login-card { 
+            background: white;
+            padding: 40px; 
+            border-radius: 20px; 
+            width: 100%;
+            max-width: 400px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
+            border-top: 6px solid #667eea;
+            box-sizing: border-box;
+        }
+
+        h2 { text-align: center; color: #2d3748; margin-bottom: 25px; }
+        
+        label { font-size: 14px; color: #4a5568; font-weight: 600; display: block; margin-bottom: 5px; }
+        
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+        }
+
+        .btn-login { 
+            width: 100%; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 14px; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 600;
+        }
+
+        .msg { 
+            background: #f56565; color: white; padding: 10px; 
+            border-radius: 8px; text-align: center; margin-bottom: 15px; 
+        }
+
+        .links { text-align: center; margin-top: 20px; font-size: 14px; }
+        .links a { color: #667eea; text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 480px) {
+            .login-card { padding: 25px; }
+            .navbar-custom span { display: none; } /* Mobile pe logo hide taaki space bache */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar-custom">
+        <span style="font-size: 20px; font-weight: bold; color: #667eea;">College Event Hub</span>
+        <div>
+            <a href="/">Home</a>
+            <a href="/register">Add Student</a>
+            <a href="/login" class="active">Login</a>
+        </div>
+    </nav>
+    
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Admin Login</h2>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="msg">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form action="/login" method="POST">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="Email Address" required>
+                
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+
+            <div class="links">
+                <p><a href="/forgot_password" style="color: #e53e3e;">Forgot Password?</a></p>
+                <p style="color: #718096;">New Admin? <a href="/signup">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
